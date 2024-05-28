@@ -1,10 +1,15 @@
 "use client";
 import React, { useState } from "react";
 import data from "../../../menu.json";
+
+//component imports**
 import ProductButton from "../comps/ProductButton";
+import ProceedBar from "../comps/ProceedBar";
+
+//type imports
 import { ButtonType } from "../comps/ProductButton";
 
-interface Item {
+export interface Item {
   id: string;
   count: number;
   large: boolean;
@@ -25,7 +30,7 @@ export default function page() {
       const existingItem = prevOrder.findIndex(
         (orderItem) => orderItem.id === id
       );
-      console.log(existingItem);
+
       if (buttonType === ButtonType.delete)
         return prevOrder.filter((item) => item.id !== id);
 
@@ -60,23 +65,31 @@ export default function page() {
       }
     });
   };
+
   return (
-    <div className="grid md:grid-cols-6 grid-cols-2 gap-4">
-      {data.map((item, index) => {
-        const orderItem = order.find((orderItem) => orderItem.id === item.name);
-        return (
-          <ProductButton
-            productDetails={{ id: item.name, large: item.large }}
-            orderDetails={{
-              count: orderItem?.count || 0,
-              large: orderItem?.large || false,
-              boba: orderItem?.boba || false,
-            }}
-            onButtonClickGeneric={onButtonClickGeneric}
-            key={index}
-          ></ProductButton>
-        );
-      })}
+    <div className="relative">
+      <div className="grid md:grid-cols-6 grid-cols-2 gap-4">
+        {data.map((item, index) => {
+          const orderItem = order.find(
+            (orderItem) => orderItem.id === item.name
+          );
+          return (
+            <ProductButton
+              productDetails={{ id: item.name, large: item.large }}
+              orderDetails={{
+                count: orderItem?.count || 0,
+                large: orderItem?.large || false,
+                boba: orderItem?.boba || false,
+              }}
+              onButtonClickGeneric={onButtonClickGeneric}
+              key={index}
+            ></ProductButton>
+          );
+        })}
+      </div>
+      <div className="fixed bottom-0">
+        {order.length > 0 && <ProceedBar orders={order} />}
+      </div>
     </div>
   );
 }
