@@ -1,4 +1,7 @@
-import React from "react";
+"use client";
+
+import React, { useContext } from "react";
+import { useRouter } from "next/navigation";
 
 //shadcn imports**
 import { Button } from "@/components/ui/button";
@@ -14,16 +17,36 @@ import {
 } from "@/components/ui/drawer";
 
 //type import**
-import { Item } from "../menu/page";
+import { ItemType } from "../queue/waiter/order/page";
 
 interface ProceedBarProps {
-  orders: Item[];
+  orders: ItemType[];
 }
 
+import { WaiterOrderContext } from "../queue/waiter/layout";
+
 export default function ProceedBar(props: ProceedBarProps) {
+  const router = useRouter();
+  const { setWaiterOrder } = useContext(WaiterOrderContext);
+
+  const calcPrice = (item: ItemType) => {
+    var finalCost = item.price * item.count;
+    if (item.boba) finalCost += 20;
+    return finalCost;
+  };
+
+  const handlePlaceOrder = () => {
+    setWaiterOrder(props.orders);
+    router.push("/queue/waiter/bill");
+  };
   return (
     <div className="justify-between flex flex-row gap-4 bg-secondary p-4 w-screen">
-      <Button className="grow bg-green-500 text-white">Done</Button>
+      <Button
+        className=" bg-green-500 text-white grow"
+        onClick={handlePlaceOrder}
+      >
+        Done
+      </Button>
       <Drawer>
         <DrawerTrigger className="grow">View Order</DrawerTrigger>
         <DrawerContent>
@@ -39,14 +62,16 @@ export default function ProceedBar(props: ProceedBarProps) {
                   </div>
                   <div>SIZE:{item.large ? "L" : "M"}</div>
                   <div>{item.boba ? "BOBA" : "NA"}</div>
-                  <div>{item.count}</div>
+
+                  {/* the price function will be called here */}
+                  <div>2</div>
                 </div>
               );
             })}
           </div>
           <DrawerFooter>
-            <Button className="bg-green-500">Place Order</Button>
-            <DrawerClose>
+            <Button className="bg-green-500 grow">Place Order</Button>
+            <DrawerClose asChild>
               <Button variant="outline">Close</Button>
             </DrawerClose>
           </DrawerFooter>

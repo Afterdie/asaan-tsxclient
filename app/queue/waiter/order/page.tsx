@@ -1,30 +1,30 @@
 "use client";
-import React, { useState } from "react";
-import data from "../../../menu.json";
+import React, { useState, useContext } from "react";
+import data from "../../../../../menu.json";
 
 //component imports**
-import ProductButton from "../comps/ProductButton";
-import ProceedBar from "../comps/ProceedBar";
+import ProductButton from "../../../comps/ProductButton";
+import ProceedBar from "../../../comps/ProceedBar";
 
 //type imports
-import { ButtonType } from "../comps/ProductButton";
+import { ButtonType } from "../../../comps/ProductButton";
 
-export interface Item {
+export interface ItemType {
   id: string;
   count: number;
   large: boolean;
   boba: boolean;
+  price: number;
 }
 
 interface Order {
-  item: Item[];
+  item: ItemType[];
 }
 
 export default function page() {
-  const [order, setOrder] = useState<Item[]>([]);
+  const [order, setOrder] = useState<ItemType[]>([]);
 
   const onButtonClickGeneric = (id: string, buttonType: ButtonType): void => {
-    console.log(order);
     //all three button lead here therefore the logic
     setOrder((prevOrder) => {
       const existingItem = prevOrder.findIndex(
@@ -60,6 +60,7 @@ export default function page() {
           count: 1,
           large: buttonType === ButtonType.large ? true : false,
           boba: buttonType === ButtonType.boba ? true : false,
+          price: data.find((item) => item.name === id)?.price || -999,
         };
         return [...prevOrder, newEntry];
       }
@@ -83,7 +84,7 @@ export default function page() {
               }}
               onButtonClickGeneric={onButtonClickGeneric}
               key={index}
-            ></ProductButton>
+            />
           );
         })}
       </div>
