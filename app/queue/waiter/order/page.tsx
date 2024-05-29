@@ -88,8 +88,12 @@ export default function page() {
           );
         })}
       </div>
-      <div className="fixed bottom-0">
-        {order.length > 0 && <ProceedBar orders={order} />}
+      <div
+        className={`fixed bottom-0 transition-all ease-in-out duration-100 ${
+          order.length > 0 ? "" : "translate-y-[100px]"
+        }`}
+      >
+        <ProceedBar orders={order} />
       </div>
     </div>
   );
