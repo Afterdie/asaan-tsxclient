@@ -17,10 +17,6 @@ export interface ItemType {
   price: number;
 }
 
-interface Order {
-  item: ItemType[];
-}
-
 export default function page() {
   const [order, setOrder] = useState<ItemType[]>([]);
 

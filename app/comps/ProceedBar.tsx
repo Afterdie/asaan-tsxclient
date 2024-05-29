@@ -70,7 +70,9 @@ export default function ProceedBar(props: ProceedBarProps) {
             })}
           </div>
           <DrawerFooter>
-            <Button className="bg-green-500 grow">Place Order</Button>
+            <Button className="bg-green-500 grow" onClick={handlePlaceOrder}>
+              Place Order
+            </Button>
             <DrawerClose asChild>
               <Button variant="outline">Close</Button>
             </DrawerClose>
