@@ -39,6 +39,10 @@ const config = {
                DEFAULT: 'hsl(var(--destructive))',
                foreground: 'hsl(var(--destructive-foreground))',
             },
+            valid: {
+               DEFAULT: '#22c55e',
+               foreground: 'white',
+            },
             muted: {
                DEFAULT: 'hsl(var(--muted))',
                foreground: 'hsl(var(--muted-foreground))',

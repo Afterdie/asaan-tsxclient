@@ -2,6 +2,9 @@
 import React, { useState } from 'react'
 import data from '../../../../../menu.json'
 
+//shadcn import
+import { Badge } from '@/components/ui/badge'
+
 //component imports**
 import ProductButton from '../../../comps/ProductButton'
 import ProceedBar from '../../../comps/ProceedBar'
@@ -38,7 +41,7 @@ export default function page() {
             return prevOrder.filter((item) => item.id !== id)
 
          //ref of the item from the catalogue
-         const item = data.find((item) => item.name === id)
+         const item = data.order.find((item) => item.name === id)
 
          //case: found in order
          if (existingItem !== -1) {
@@ -100,28 +103,40 @@ export default function page() {
          }
       })
    }
-
    return (
-      <div className="relative">
-         <div className="grid grid-cols-2 gap-4 md:grid-cols-6">
-            {data.map((item, index) => {
-               const orderItem = order.find(
-                  (orderItem) => orderItem.id === item.name
+      <div className="relative text-center">
+         <div className="flex flex-col gap-6">
+            {data.categories.map((item, categoryIndex) => {
+               const itemsInCategory = data.order.filter(
+                  (filteredItems) => filteredItems.category === item
                )
                return (
-                  <ProductButton
-                     productDetails={{
-                        id: item.name,
-                        large: item.large,
-                     }}
-                     orderDetails={{
-                        count: orderItem?.count || 0,
-                        large: orderItem?.large || false,
-                        boba: orderItem?.boba || false,
-                     }}
-                     onButtonClickGeneric={onButtonClickGeneric}
-                     key={index}
-                  />
+                  <div key={categoryIndex}>
+                     <Badge className="bg-valid my-2">{item}</Badge>
+
+                     <div className="grid grid-cols-2 gap-2">
+                        {itemsInCategory.map((item, index) => {
+                           const orderItem = order.find(
+                              (orderItem) => orderItem.id === item.name
+                           )
+                           return (
+                              <ProductButton
+                                 productDetails={{
+                                    id: item.name,
+                                    large: item.large,
+                                 }}
+                                 orderDetails={{
+                                    count: orderItem?.count || 0,
+                                    large: orderItem?.large || false,
+                                    boba: orderItem?.boba || false,
+                                 }}
+                                 onButtonClickGeneric={onButtonClickGeneric}
+                                 key={index}
+                              />
+                           )
+                        })}
+                     </div>
+                  </div>
                )
             })}
          </div>

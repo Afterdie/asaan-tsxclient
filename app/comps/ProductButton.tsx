@@ -49,9 +49,6 @@ export default function ProductButton(props: Props) {
             <CardHeader>
                <CardTitle>{props.productDetails.id}</CardTitle>
             </CardHeader>
-            <CardContent>
-               <p>Card</p>
-            </CardContent>
          </Card>
          <div className="flex flex-row justify-between gap-2">
             {props.productDetails.large && (

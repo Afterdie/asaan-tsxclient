@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { useToast } from '@/components/ui/use-toast'
 
 //type imports**
 import { socketCallbackType } from '../../page'
@@ -27,6 +28,7 @@ const name = 'BobaLand'
 const receiver = 'ak.s.hatoff@okaxis'
 
 export default function page() {
+   const { toast } = useToast()
    const router = useRouter()
    const { waiterOrder } = useContext(WaiterOrderContext)
 
@@ -82,10 +84,14 @@ export default function page() {
          (res: socketCallbackType) => {
             if (res && res.status == 'received') {
                console.log('order sent succesfully')
-               router.push('/queue/waiter/order')
+               toast({
+                  title: `${orderDetails.name}'s order has been received`,
+                  variant: 'valid',
+               })
             }
          }
       )
+      router.push('/queue/waiter/order')
    }
    return (
       <div className="p-4">

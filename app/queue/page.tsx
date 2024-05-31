@@ -25,7 +25,7 @@ export default function page() {
 
    const router = useRouter()
    const handleRoomJoin = (e: any) => {
-      const socket = io('http://localhost:3000')
+      const socket = io(`${process.env.NEXT_PUBLIC_DEV_SERVER_URL}`)
       const role: roleTypes = e.target.id
       socket.emit('joinRoom', { roomname, role }, (res: socketCallbackType) => {
          if (res && res.status == 'success') {

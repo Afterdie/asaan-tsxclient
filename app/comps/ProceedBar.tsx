@@ -25,14 +25,15 @@ interface ProceedBarProps {
 
 import { WaiterOrderContext } from '../queue/waiter/layout'
 
+const bobaPrice = 20
 export default function ProceedBar(props: ProceedBarProps) {
    const router = useRouter()
    const { setWaiterOrder } = useContext(WaiterOrderContext)
 
    const calcPrice = (item: ItemType) => {
-      var finalCost = item.price * item.count
-      if (item.boba) finalCost += 20
-      return finalCost
+      let basePrice = item.price
+      if (item.boba) basePrice += bobaPrice
+      return basePrice * item.count
    }
 
    const handlePlaceOrder = () => {
@@ -40,7 +41,7 @@ export default function ProceedBar(props: ProceedBarProps) {
       router.push('/queue/waiter/bill')
    }
    return (
-      <div className="bg-secondary flex w-screen flex-row justify-between gap-4 p-4">
+      <div className="flex w-screen flex-row justify-between gap-4 bg-secondary p-4">
          <Button
             className=" grow bg-green-500 text-white"
             onClick={handlePlaceOrder}
@@ -64,7 +65,7 @@ export default function ProceedBar(props: ProceedBarProps) {
                            <div>{item.boba ? 'BOBA' : 'NA'}</div>
 
                            {/* the price function will be called here */}
-                           <div>2</div>
+                           <div>{calcPrice(item)}</div>
                         </div>
                      )
                   })}
