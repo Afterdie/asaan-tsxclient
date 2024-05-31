@@ -21,32 +21,64 @@ import { Input } from '@/components/ui/input'
 
 //type imports**
 import { socketCallbackType } from '../../page'
+import { ItemType } from '../order/page'
 
-const price = 100
 const name = 'BobaLand'
 const receiver = 'ak.s.hatoff@okaxis'
-const url = `upi://pay?pa=${receiver}&pn=${name}%20Name&am=${price}&cu=INR`
 
 export default function page() {
    const router = useRouter()
    const { waiterOrder } = useContext(WaiterOrderContext)
+
+   //deguging
+   console.log(waiterOrder)
+
    const { socket } = useContext(SocketContext)
 
    const [QR, setQR] = useState<string>('')
 
    useEffect(() => {
+      const price = calcCost(waiterOrder)
+      const url = `upi://pay?pa=${receiver}&pn=${name}%20Name&am=${price}&cu=INR`
       QRCode.toDataURL(url).then(setQR)
    }, [])
+
+   //used to properly format the data for sending
+   const genOrderStructure = () => {
+      return {
+         name: name,
+         time: new Date(),
+         order: waiterOrder.map((item) => {
+            return {
+               id: item.id,
+               count: item.count,
+               large: item.large,
+               boba: item.boba,
+            }
+         }),
+         cost: calcCost(waiterOrder),
+      }
+   }
+
+   //calculate the cost of the order
+   const calcCost = (waiterOrder: ItemType[]) => {
+      let total = waiterOrder.reduce((acc, currentItem) => {
+         return acc + currentItem.price * currentItem.count
+      }, 0)
+      return total
+   }
 
    const [name, setName] = useState<string>('')
    const handleNameField = (e: any) => {
       setName(e.target.value)
    }
+
    const handleOrderPaid = () => {
-      const timeStamp = new Date()
+      const orderDetails = genOrderStructure()
+      console.log(orderDetails)
       socket?.emit(
          'confirmedOrder',
-         { waiterOrder, timeStamp },
+         orderDetails,
          (res: socketCallbackType) => {
             if (res && res.status == 'received') {
                console.log('order sent succesfully')
@@ -64,7 +96,7 @@ export default function page() {
                </span>
             </CardHeader>
             <CardContent className="flex flex-col items-center justify-between gap-4">
-               <h1 className="text-2xl font-bold">₹{price}</h1>
+               <h1 className="text-2xl font-bold">₹{calcCost(waiterOrder)}</h1>
 
                <div>
                   <img src={QR} alt="" className="w-[70vw]" />
