@@ -25,15 +25,24 @@ export default function page() {
 
    const router = useRouter()
    const handleRoomJoin = (e: any) => {
-      const socket = io(`${process.env.NEXT_PUBLIC_DEV_SERVER_URL}`)
-      const role: roleTypes = e.target.id
-      socket.emit('joinRoom', { roomname, role }, (res: socketCallbackType) => {
-         if (res && res.status == 'success') {
-            //not sure if i should put it here or after the connection is made
-            setSocket(socket)
-            router.push(`/queue/${role}`)
-         } else toast({ title: 'Something went wrong', variant: 'destructive' })
-      })
+      try {
+         const socket = io(`${process.env.NEXT_PUBLIC_PROD_SERVER_URL}`)
+         const role: roleTypes = e.target.id
+         socket.emit(
+            'joinRoom',
+            { roomname, role },
+            (res: socketCallbackType) => {
+               if (res && res.status === 'success') {
+                  //not sure if i should put it here or after the connection is made
+                  setSocket(socket)
+                  router.push(`/queue/${role}`)
+               } else
+                  toast({ title: 'joinRoom failed', variant: 'destructive' })
+            }
+         )
+      } catch (err) {
+         toast({ title: 'Failed to create room', variant: 'destructive' })
+      }
    }
 
    return (

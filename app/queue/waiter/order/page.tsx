@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import data from '../../../../../menu.json'
+import data from '../../../../menu.json'
 
 //shadcn import
 import { Badge } from '@/components/ui/badge'
@@ -112,7 +112,7 @@ export default function page() {
                )
                return (
                   <div key={categoryIndex}>
-                     <Badge className="bg-valid my-2">{item}</Badge>
+                     <Badge className="my-2 bg-valid">{item}</Badge>
 
                      <div className="grid grid-cols-2 gap-2">
                         {itemsInCategory.map((item, index) => {

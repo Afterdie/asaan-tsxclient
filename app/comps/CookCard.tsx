@@ -16,7 +16,7 @@ import { cookOrderDetailsType } from '../queue/cook/page'
 
 interface cookCardPropsType {
    order: cookOrderDetailsType
-   orderCompleted: (id: string) => void
+   orderCompleted: (uniqueId: string) => void
 }
 
 //ur getting the name and an array of orders
@@ -27,8 +27,10 @@ export default function CookCard(props: cookCardPropsType) {
          <CardHeader>
             <CardTitle>
                <div className="flex flex-row items-center justify-between">
-                  <h1>{props.order.id}</h1>
-                  <Button onClick={() => props.orderCompleted(props.order.id)}>
+                  <h1>{props.order.uniqueId}</h1>
+                  <Button
+                     onClick={() => props.orderCompleted(props.order.uniqueId)}
+                  >
                      Done
                   </Button>
                </div>

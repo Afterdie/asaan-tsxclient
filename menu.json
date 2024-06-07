@@ -1,0 +1,191 @@
+{
+   "order": [
+      {
+         "name": "Vrgn Moj",
+         "price": [50, 999],
+         "category": "mocktail",
+         "large": false
+      },
+      {
+         "name": "Blu Lagoon",
+         "price": [50, 999],
+         "category": "mocktail",
+         "large": false
+      },
+      {
+         "name": "Grn Godess",
+         "price": [50, 999],
+         "category": "mocktail",
+         "large": false
+      },
+      {
+         "name": "Blck Dog",
+         "price": [50, 999],
+         "category": "mocktail",
+         "large": false
+      },
+      {
+         "name": "Vilet Shrine",
+         "price": [50, 999],
+         "category": "mocktail",
+         "large": false
+      },
+      {
+         "name": "Grn Sea",
+         "price": [50, 999],
+         "category": "mocktail",
+         "large": false
+      },
+      {
+         "name": "Pinappl_Mock",
+         "price": [50, 999],
+         "category": "mocktail",
+         "large": false
+      },
+      {
+         "name": "Mojito Wtrmln",
+         "price": [50, 999],
+         "category": "mocktail",
+         "large": false
+      },
+      {
+         "name": "Mojito Lici",
+         "price": [50, 999],
+         "category": "mocktail",
+         "large": false
+      },
+      {
+         "name": "Jeera",
+         "price": [40, 999],
+         "category": "refresh",
+         "large": false
+      },
+      {
+         "name": "Sknji",
+         "price": [40, 999],
+         "category": "refresh",
+         "large": false
+      },
+      {
+         "name": "Kla Khtta",
+         "price": [40, 999],
+         "category": "refresh",
+         "large": false
+      },
+      {
+         "name": "Strberry_Ref",
+         "price": [40, 999],
+         "category": "refresh",
+         "large": false
+      },
+      {
+         "name": "Grn Appl_Ref",
+         "price": [40, 999],
+         "category": "refresh",
+         "large": false
+      },
+      {
+         "name": "Kiwi_Ref",
+         "price": [40, 999],
+         "category": "refresh",
+         "large": false
+      },
+      {
+         "name": "Mango_Ref",
+         "price": [40, 999],
+         "category": "refresh",
+         "large": false
+      },
+      {
+         "name": "Pinappl_Ref",
+         "price": [40, 999],
+         "category": "refresh",
+         "large": false
+      },
+      {
+         "name": "Wtrmln_Ref",
+         "price": [40, 999],
+         "category": "refresh",
+         "large": false
+      },
+      {
+         "name": "Litchi_Ref",
+         "price": [40, 999],
+         "category": "refresh",
+         "large": false
+      },
+      {
+         "name": "Choco",
+         "price": [80, 90],
+         "category": "milkshake",
+         "large": true
+      },
+      {
+         "name": "KitKt",
+         "price": [90, 110],
+         "category": "milkshake",
+         "large": true
+      },
+      {
+         "name": "Oreo",
+         "price": [90, 110],
+         "category": "milkshake",
+         "large": true
+      },
+      {
+         "name": "Strberry_Milk",
+         "price": [70, 90],
+         "category": "milkshake",
+         "large": true
+      },
+      {
+         "name": "Grn Appl_Milk",
+         "price": [70, 90],
+         "category": "milkshake",
+         "large": true
+      },
+      {
+         "name": "Kiwi_Milk",
+         "price": [70, 90],
+         "category": "milkshake",
+         "large": true
+      },
+      {
+         "name": "Mango_Milk",
+         "price": [70, 90],
+         "category": "milkshake",
+         "large": true
+      },
+      {
+         "name": "Btr Scotch",
+         "price": [70, 90],
+         "category": "milkshake",
+         "large": true
+      },
+      {
+         "name": "Ksr Bdam",
+         "price": [70, 90],
+         "category": "milkshake",
+         "large": true
+      },
+      {
+         "name": "Pinappl_Milk",
+         "price": [70, 90],
+         "category": "milkshake",
+         "large": true
+      },
+      {
+         "name": "Wtrmln_Milk",
+         "price": [70, 90],
+         "category": "milkshake",
+         "large": true
+      },
+      {
+         "name": "Litchi_Milk",
+         "price": [70, 90],
+         "category": "milkshake",
+         "large": true
+      }
+   ],
+   "categories": ["refresh", "mocktail", "milkshake"]
+}

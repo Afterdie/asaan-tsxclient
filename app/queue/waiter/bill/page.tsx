@@ -24,7 +24,6 @@ import { useToast } from '@/components/ui/use-toast'
 import { socketCallbackType } from '../../page'
 import { ItemType } from '../order/page'
 
-const name = 'BobaLand'
 const receiver = 'ak.s.hatoff@okaxis'
 
 export default function page() {
@@ -41,14 +40,14 @@ export default function page() {
 
    useEffect(() => {
       const price = calcCost(waiterOrder)
-      const url = `upi://pay?pa=${receiver}&pn=${name}%20Name&am=${price}&cu=INR`
+      const url = `upi://pay?pa=${receiver}&am=${price}`
       QRCode.toDataURL(url).then(setQR)
    }, [])
 
    //used to properly format the data for sending
    const genOrderStructure = () => {
       return {
-         name: name,
+         uniqueId: name,
          time: new Date(),
          order: waiterOrder.map((item) => {
             return {
@@ -85,7 +84,7 @@ export default function page() {
             if (res && res.status == 'received') {
                console.log('order sent succesfully')
                toast({
-                  title: `${orderDetails.name}'s order has been received`,
+                  title: `${orderDetails.uniqueId}'s order has been received`,
                   variant: 'valid',
                })
             }
