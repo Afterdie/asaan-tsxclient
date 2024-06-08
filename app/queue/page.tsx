@@ -26,7 +26,7 @@ export default function QueuePage() {
    const router = useRouter()
    const handleRoomJoin = (e: any) => {
       try {
-         const socket = io(`${process.env.NEXT_PUBLIC_PROD_SERVER_URL}`)
+         const socket = io(`${process.env.NEXT_PUBLIC_SERVER_URL}`)
          const role: roleTypes = e.target.id
          socket.emit(
             'joinRoom',

@@ -43,6 +43,10 @@ const config = {
                DEFAULT: '#22c55e',
                foreground: 'white',
             },
+            ongoing: {
+               DEFAULT: '#eab308',
+               foreground: 'white',
+            },
             muted: {
                DEFAULT: 'hsl(var(--muted))',
                foreground: 'hsl(var(--muted-foreground))',

@@ -1,5 +1,6 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import data from '../../../../public/menu.json'
 
 //shadcn import
@@ -11,6 +12,7 @@ import ProceedBar from '../../../comps/ProceedBar'
 
 //type imports
 import { ButtonType } from '../../../comps/ProductButton'
+import { useSocketContext } from '@/app/socketContext'
 
 export interface ItemType {
    id: string
@@ -24,11 +26,17 @@ export interface ItemType {
 const bobaCost = 20
 
 export default function OrderPage() {
+   const router = useRouter()
+   const { socket } = useSocketContext()
    const [order, setOrder] = useState<ItemType[]>([])
 
-   const onButtonClickGeneric = (id: string, buttonType: ButtonType): void => {
-      console.log(order)
+   //check if the user refereshed if so then send them back to choose role page
+   useEffect(() => {
+      if (!socket) router.push('/queue')
+      //fetch all ongoing order on first time join
+   }, [router, socket, order])
 
+   const onButtonClickGeneric = (id: string, buttonType: ButtonType): void => {
       //all three button lead here therefore the logic
       setOrder((prevOrder) => {
          //get the index for the item in the order -1 if not found

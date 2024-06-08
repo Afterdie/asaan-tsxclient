@@ -34,9 +34,6 @@ export default function Bill() {
    const router = useRouter()
    const { waiterOrder } = useWaiterOrderContext()
 
-   //deguging
-   console.log(waiterOrder)
-
    const { socket } = useSocketContext()
 
    const [QR, setQR] = useState<string>('')
@@ -79,7 +76,6 @@ export default function Bill() {
 
    const handleOrderPaid = () => {
       const orderDetails = genOrderStructure()
-      console.log(orderDetails)
       socket?.emit(
          'confirmedOrder',
          orderDetails,
@@ -88,7 +84,7 @@ export default function Bill() {
                console.log('order sent succesfully')
                toast({
                   title: `${orderDetails.uniqueId === '' ? '' : `${orderDetails.uniqueId}'s`} order has been received`,
-                  variant: 'valid',
+                  variant: 'ongoing',
                })
             }
          }
@@ -107,7 +103,9 @@ export default function Bill() {
                <h1 className="text-2xl font-bold">₹{calcCost(waiterOrder)}</h1>
 
                <div>
-                  <Image src={QR} height={300} width={300} alt="" />
+                  {QR !== '' && (
+                     <Image src={QR} height={300} width={300} alt="" />
+                  )}
                </div>
                <Input
                   placeholder="Enter Name"

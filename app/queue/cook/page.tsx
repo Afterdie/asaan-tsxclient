@@ -40,14 +40,16 @@ export default function CookPage() {
       //gets the ongoing orders using the api
       try {
          const getOngoingOrders = async () => {
-            console.log(
-               process.env.NEXT_PUBLIC_PROD_SERVER_URL + '/api/ongoingorders'
-            )
             const response = await fetch(
-               process.env.NEXT_PUBLIC_PROD_SERVER_URL + '/api/ongoingorders'
+               process.env.NEXT_PUBLIC_SERVER_URL + '/api/ongoingorders'
             )
             const data = await response.json()
-            setOrders(data.orders)
+            const sortedOrders = data.orders.sort(
+               (a: cookOrderDetailsType, b: cookOrderDetailsType) =>
+                  Number(b.uniqueId.split('#')[1]) -
+                  Number(a.uniqueId.split('#')[1])
+            )
+            setOrders(sortedOrders)
          }
 
          getOngoingOrders()
