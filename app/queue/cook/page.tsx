@@ -41,10 +41,10 @@ export default function CookPage() {
       try {
          const getOngoingOrders = async () => {
             console.log(
-               process.env.NEXT_PUBLIC_DEV_SERVER_URL + '/api/ongoingorders'
+               process.env.NEXT_PUBLIC_PROD_SERVER_URL + '/api/ongoingorders'
             )
             const response = await fetch(
-               process.env.NEXT_PUBLIC_DEV_SERVER_URL + '/api/ongoingorders'
+               process.env.NEXT_PUBLIC_PROD_SERVER_URL + '/api/ongoingorders'
             )
             const data = await response.json()
             setOrders(data.orders)
