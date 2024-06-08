@@ -27,7 +27,7 @@ import { useToast } from '@/components/ui/use-toast'
 import { socketCallbackType } from '../../page'
 import { ItemType } from '../order/page'
 
-const receiver = 'ak.s.hatoff@okaxis'
+const receiver = 'q601622855@ybl'
 
 export default function Bill() {
    const { toast } = useToast()
@@ -40,7 +40,7 @@ export default function Bill() {
 
    useEffect(() => {
       const price = calcCost(waiterOrder)
-      const url = `upi://pay?pa=${receiver}&am=${price}`
+      const url = `upi://pay?pa=${encodeURIComponent(receiver)}&am=${price}&tn=${encodeURIComponent('From Asaan')}`
       QRCode.toDataURL(url).then(setQR)
    }, [waiterOrder])
 

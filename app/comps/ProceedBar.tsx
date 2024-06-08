@@ -60,7 +60,7 @@ export default function ProceedBar(props: ProceedBarProps) {
                               {item.count} X {item.id}
                            </div>
                            <div>SIZE:{item.large ? 'L' : 'M'}</div>
-                           <div>{item.boba ? 'BOBA' : 'NA'}</div>
+                           <div>{item.boba ? 'BOBA' : 'NB'}</div>
 
                            {/* the price function will be called here */}
                            <div>{calcPrice(item)}</div>
