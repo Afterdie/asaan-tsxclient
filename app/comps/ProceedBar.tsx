@@ -1,6 +1,4 @@
-'use client'
-
-import React, { useContext } from 'react'
+import React from 'react'
 import { useRouter } from 'next/navigation'
 
 //shadcn imports**
@@ -23,12 +21,12 @@ interface ProceedBarProps {
    orders: ItemType[]
 }
 
-import { WaiterOrderContext } from '../queue/waiter/layout'
+import { useWaiterOrderContext } from '../waiterOrderContext'
 
 const bobaPrice = 20
 export default function ProceedBar(props: ProceedBarProps) {
    const router = useRouter()
-   const { setWaiterOrder } = useContext(WaiterOrderContext)
+   const { setWaiterOrder } = useWaiterOrderContext()
 
    const calcPrice = (item: ItemType) => {
       let basePrice = item.price

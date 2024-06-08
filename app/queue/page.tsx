@@ -1,7 +1,8 @@
 'use client'
 import React, { useEffect, useState, useContext } from 'react'
 import { useRouter } from 'next/navigation'
-import { SocketContext } from './layout'
+
+import { useSocketContext } from '../socketContext'
 
 import io from 'socket.io-client'
 
@@ -18,11 +19,10 @@ export interface socketCallbackType {
    status: string
 }
 const roomname: string = 'boba'
-export default function page() {
+export default function QueuePage() {
    const { toast } = useToast()
 
-   const { setSocket } = useContext(SocketContext)
-
+   const { setSocket } = useSocketContext()
    const router = useRouter()
    const handleRoomJoin = (e: any) => {
       try {

@@ -1,22 +1,11 @@
-'use client'
-import React, { SetStateAction, createContext, useState } from 'react'
-import { Socket } from 'socket.io-client'
+import React from 'react'
 
-interface SocketTypes {
-   socket: Socket | null
-   setSocket: React.Dispatch<SetStateAction<Socket | null>>
-}
+import { SocketWrapper } from '../socketContext'
 
-export const SocketContext = createContext<SocketTypes>({
-   socket: null,
-   setSocket: () => {},
-})
-
-export default function layout({ children }: { children: React.ReactNode }) {
-   const [socket, setSocket] = useState<Socket | null>(null)
-   return (
-      <SocketContext.Provider value={{ socket, setSocket }}>
-         {children}
-      </SocketContext.Provider>
-   )
+export default function QueueLayout({
+   children,
+}: {
+   children: React.ReactNode
+}) {
+   return <SocketWrapper>{children}</SocketWrapper>
 }

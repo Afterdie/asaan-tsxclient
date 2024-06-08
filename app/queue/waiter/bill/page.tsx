@@ -1,9 +1,12 @@
 'use client'
 import React, { useContext, useEffect, useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { WaiterOrderContext } from '../layout'
-import { SocketContext } from '../../layout'
+
+import { useWaiterOrderContext } from '@/app/waiterOrderContext'
+
+import { useSocketContext } from '@/app/socketContext'
 
 import QRCode from 'qrcode'
 
@@ -26,15 +29,15 @@ import { ItemType } from '../order/page'
 
 const receiver = 'ak.s.hatoff@okaxis'
 
-export default function page() {
+export default function Bill() {
    const { toast } = useToast()
    const router = useRouter()
-   const { waiterOrder } = useContext(WaiterOrderContext)
+   const { waiterOrder } = useWaiterOrderContext()
 
    //deguging
    console.log(waiterOrder)
 
-   const { socket } = useContext(SocketContext)
+   const { socket } = useSocketContext()
 
    const [QR, setQR] = useState<string>('')
 
@@ -42,7 +45,7 @@ export default function page() {
       const price = calcCost(waiterOrder)
       const url = `upi://pay?pa=${receiver}&am=${price}`
       QRCode.toDataURL(url).then(setQR)
-   }, [])
+   }, [waiterOrder])
 
    //used to properly format the data for sending
    const genOrderStructure = () => {
@@ -84,7 +87,7 @@ export default function page() {
             if (res && res.status == 'received') {
                console.log('order sent succesfully')
                toast({
-                  title: `${orderDetails.uniqueId}'s order has been received`,
+                  title: `${orderDetails.uniqueId === '' ? '' : `${orderDetails.uniqueId}'s`} order has been received`,
                   variant: 'valid',
                })
             }
@@ -104,7 +107,7 @@ export default function page() {
                <h1 className="text-2xl font-bold">₹{calcCost(waiterOrder)}</h1>
 
                <div>
-                  <img src={QR} alt="" className="w-[70vw]" />
+                  <Image src={QR} height={300} width={300} alt="" />
                </div>
                <Input
                   placeholder="Enter Name"

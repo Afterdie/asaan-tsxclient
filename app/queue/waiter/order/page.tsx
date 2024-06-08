@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import data from '../../../../menu.json'
+import data from '../../../../public/menu.json'
 
 //shadcn import
 import { Badge } from '@/components/ui/badge'
@@ -23,7 +23,7 @@ export interface ItemType {
 //centralise this variable in the future to make it generalised for different business
 const bobaCost = 20
 
-export default function page() {
+export default function OrderPage() {
    const [order, setOrder] = useState<ItemType[]>([])
 
    const onButtonClickGeneric = (id: string, buttonType: ButtonType): void => {

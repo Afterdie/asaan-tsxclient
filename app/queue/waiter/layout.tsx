@@ -1,39 +1,26 @@
 'use client'
-import React, {
-   SetStateAction,
-   createContext,
-   useState,
-   useContext,
-   useEffect,
-} from 'react'
-import { ItemType } from './order/page'
+import React, { useEffect, ReactNode } from 'react'
 
-import { SocketContext } from '../layout'
+import { useSocketContext } from '@/app/socketContext'
+
 import { useRouter } from 'next/navigation'
+import { WaiterOrderWrapper } from '@/app/waiterOrderContext'
 
-interface WaiterOrderType {
-   waiterOrder: ItemType[]
-   setWaiterOrder: React.Dispatch<SetStateAction<ItemType[]>>
+type WaiterLayoutProps = {
+   children: ReactNode
 }
 
-export const WaiterOrderContext = createContext<WaiterOrderType>({
-   waiterOrder: [],
-   setWaiterOrder: () => {},
-})
-
-export default function layout({ children }: { children: React.ReactNode }) {
-   const { socket } = useContext(SocketContext)
+const WaiterLayout: React.FC<WaiterLayoutProps> = ({ children }) => {
+   const { socket } = useSocketContext()
    const router = useRouter()
+
    useEffect(() => {
-      console.log(waiterOrder)
       if (!socket) {
          router.push('/queue')
       }
-   }, [])
-   const [waiterOrder, setWaiterOrder] = useState<ItemType[]>([])
-   return (
-      <WaiterOrderContext.Provider value={{ waiterOrder, setWaiterOrder }}>
-         {children}
-      </WaiterOrderContext.Provider>
-   )
+   }, [router, socket])
+
+   return <WaiterOrderWrapper>{children}</WaiterOrderWrapper>
 }
+
+export default WaiterLayout

@@ -1,7 +1,8 @@
 'use client'
 import React, { useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { SocketContext } from '../layout'
+
+import { useSocketContext } from '@/app/socketContext'
 
 import { ItemType } from '../waiter/order/page'
 import CookCard from '@/app/comps/CookCard'
@@ -21,11 +22,11 @@ export interface cookOrderDetailsType {
    order: cookOrderType[]
 }
 
-export default function page() {
+export default function CookPage() {
    const { toast } = useToast()
 
    const router = useRouter()
-   const { socket } = useContext(SocketContext)
+   const { socket } = useSocketContext()
    const [orders, setOrders] = useState<cookOrderDetailsType[]>([])
    const [fetching, setFetching] = useState<boolean>(true)
 
@@ -33,7 +34,7 @@ export default function page() {
    useEffect(() => {
       if (!socket) router.push('/queue')
       //fetch all ongoing order on first time join
-   }, [orders])
+   }, [router, socket, orders])
 
    useEffect(() => {
       //gets the ongoing orders using the api
@@ -57,10 +58,10 @@ export default function page() {
       setFetching(false)
    }, [])
 
-   socket?.on('message', (msg) => {
+   socket?.on('message', (msg: string) => {
       toast({ title: msg, variant: 'valid' })
    })
-   socket?.on('newOrder', (props) => {
+   socket?.on('newOrder', (props: any) => {
       //do something with the timeStamp
       setOrders([props, ...orders])
    })
